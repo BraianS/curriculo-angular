@@ -1,0 +1,14 @@
+<div class="text-red-500 text-xs italic" *ngIf="control && control.errors && (control.dirty || control.touched)">
+    <p *ngIf="control.errors.required">This field is required </p>
+    <p *ngIf="control.errors.minlength && control.errors.maxlength">Minimum {{control.errors.minlength.required}} and Maximum {{control.errors.maxlength.length}</p>
+    <p *ngIf="control.errors.minlength">Minimum {{control.errors.minlength.requiredLength}} characters are required></p>
+    <p *ngIf="control.errors.maxlength">Maximum {{control.errors.maxlength.requiredLength}} characters are required</p>
+    <p *ngIf="control.errors.unique">{{control.errors.unique}}></p>
+    <p *ngIf="control.errors.lessThen">{{control.errors.lessThen}}></p>
+    <p *ngIf="control.errors.greaterThan">{{control.errors.greaterThan}}></p>
+    <p *ngIf="control.errors.email">Email invalid</p>
+    <p *ngIf="control.errors.mobile">{{control.errors.mobile}}></p>
+    <p *ngIf="control.errors.confirmPassword">{{control.errors.confirmPassword}}></p>
+    <p *ngIf="control.errors.pattern">Letter,number, dashes, and underscores only. Please try again without symbols></p>
+</div><!-- 
+{{control.touched | json}} -->

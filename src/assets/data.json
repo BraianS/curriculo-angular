@@ -1,0 +1,50 @@
+{
+    "dados": {
+        "nome": "Braian Nogueira da Silva",
+        "idade": "58",
+        "nacionalidade": "Brasileiro",
+        "estadoCivil": "SOlteiro",
+        "cnh": [
+            "A",
+            "B"
+        ],
+        "email": "ssilva.bn@gmail.com",
+        "cidade": "Sorocaba",
+        "bairro": "Parque das Laranjeiras",
+        "estado": "SP",
+        "numero": "58",
+        "logradouro": "Avenida Doutor Ulysses Guimarães",
+        "telefone": "1532263867",
+        "celular": "15988018106"
+    },
+    "objetivo": "Analista de Sistemas",
+    "formacoes": [
+        {
+            "escolaridade": "Ensino Fundamental (1° Grau) Interrompido",
+            "instituicao": "Escola Estadual Fulano de tal",
+            "inicio": "2010-10-10",
+            "termino": "2010-10-10",
+            "status": "Concluído"
+        }
+    ],
+    "experiencias": [
+        {
+            "funcao": "Estágio",
+            "empresa": "Empresa top demais",
+            "inicio": "2010-10-10",
+            "termino": "2010-10-10",
+            "descricao": "Tabulação de mesa no sistema de fulano de tal\n\nExplorando novos conhencimentos"
+        }
+    ],
+    "habilidades": [
+        {
+            "nome": "FLexível"
+        },
+        {
+            "nome": "Comunicativo"
+        },
+        {
+            "nome": ""
+        }
+    ]
+}

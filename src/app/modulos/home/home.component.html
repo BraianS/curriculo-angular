@@ -1,0 +1,420 @@
+<div class="container mx-auto">
+    <div class=" text-center pb-5">
+        <h1 class="text-4xl">Crie seu currículo e salve no formado .docx</h1>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+        <form class="flex-grow" [formGroup]="resume" (ngSubmit)="download()">
+
+            <!-- Dados -->
+            <p class="font-bold">Dados</p>
+            <div formGroupName="dados">
+                <div class="flex flex-wrap -mx-3 mb-2">
+
+                    <div class="w-full md:w-3/6 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nome">
+                            Nome
+                        </label>
+                        <input
+                            [ngClass]="{'border-red-500': dados.nome.errors && (dados.nome.dirty || dados.nome.touched)}"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                            type="text" placeholder="Ex: Braian" formControlName="nome">
+                        <app-error [control]="dados.nome"></app-error>
+
+                    </div>
+
+                    <div class="w-full md:w-2/6 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="nacionalidade">
+                            nacionalidade
+                        </label>
+                        <input
+                            [ngClass]="{'border-red-500': dados.nacionalidade.errors && (dados.nacionalidade.dirty || dados.nacionalidade.touched)}"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                            type="text" placeholder="Ex: Braian" formControlName="nacionalidade">
+                        <app-error [control]="dados.nacionalidade"></app-error>
+
+                    </div>
+
+                    <div class="w-full md:w-1/6 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="idade">
+                            idade
+                        </label>
+                        <input
+                            [ngClass]="{'border-red-500': dados.idade.errors && (dados.idade.dirty || dados.idade.touched)}"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                            type="text" formControlName="idade" type="number" placeholder="44" max="110" min="0">
+                        <app-error [control]="dados.idade"></app-error>
+                    </div>
+
+                    <div class="w-full md:w-2/6 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="estadoCivil">
+                            Estado Civil
+                        </label>
+                        <input
+                            [ngClass]="{'border-red-500': dados.estadoCivil.errors && (dados.estadoCivil.dirty || dados.estadoCivil.touched)}"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                            type="text" placeholder="Ex: Braian" formControlName="estadoCivil">
+                        <app-error [control]="dados.estadoCivil"></app-error>
+
+                    </div>
+                    <div class="w-full md:w-3/6 px-3">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="email">
+                            Email
+                        </label>
+                        <input
+                            [ngClass]="{'border-red-500': dados.email.errors && (dados.email.dirty || dados.email.touched)}"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            type="email" placeholder="Ex: email@gmail.com" formControlName="email">
+                        <app-error [control]="dados.email"></app-error>
+                    </div>
+
+                    <div class="w-full md:w-1/6 self-center px-3 mb-6 md:mb-0" formArrayName="cnh">
+
+                        <div class="flex items-center bg-gray-200 text-gray-700 border border-gray-200">
+                            <label class="block mr-2 uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="cnh">
+                                CNH
+                            </label>
+                            <div *ngFor="let data of cnhTipos; let i=index">
+                                <input type="checkbox" [value]="data.value" class=""
+                                    (change)="onCHeckboxChange($event)">{{data.value}}
+                            </div>
+                        </div>
+
+                        <!-- <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="cnh">
+                            CNH
+                        </label>
+                        <div *ngFor="let data of cnhTipos; let i=index">
+                            <input type="checkbox" [value]="data.value"
+                                (change)="onCHeckboxChange($event)">{{data.value}}
+                        </div> -->
+
+                    </div>
+
+                    <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-zip">
+                            CEP
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            type="number" min="0" max="7" (change)="onConsultaCep()" placeholder="Ex:09963-540"
+                            formControlName="cep">
+
+                    </div>
+                    <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="cidade">
+                            Bairro
+                        </label>
+                        <input
+                            [ngClass]="{'border-red-500': dados.bairro.errors && (dados.bairro.dirty || dados.bairro.touched)}"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="grid-city" type="text" placeholder="Albuquerque" formControlName="bairro">
+                        <app-error [control]="dados.bairro"></app-error>
+                    </div>
+                    <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="cidade">
+                            Cidade
+                        </label>
+                        <input
+                            [ngClass]="{'border-red-500': dados.cidade.errors && (dados.cidade.dirty || dados.cidade.touched)}"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="grid-city" type="text" placeholder="Albuquerque" formControlName="cidade">
+                        <app-error [control]="dados.cidade"></app-error>
+                    </div>
+                    <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="cidade">
+                            Estado
+                        </label>
+                        <input
+                            [ngClass]="{'border-red-500': dados.estado.errors && (dados.estado.dirty || dados.estado.touched)}"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="grid-city" type="text" placeholder="Albuquerque" formControlName="estado">
+                        <app-error [control]="dados.estado"></app-error>
+                    </div>
+
+                    <div class="w-full md:w-5/6 px-3 mb-6 md:mb-0">
+                        <label for="logradouro"
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Logradouro</label>
+                        <input type="text"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            type="text" placeholder="Rua ou Avenina Washigton pensa" formControlName="logradouro">
+                    </div>
+
+                    <div class="w-full md:w-1/6 px-3 mb-6 md:mb-0">
+                        <label for="numero"
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Número</label>
+                        <input type="text"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            type="number" placeholder="Ex: 44" formControlName="numero">
+                    </div>
+
+                    <div class="w-full md:w-1/2 px-3 ">
+                        <label for="telefone"
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Telefone
+                        </label>
+                        <input
+                            [ngClass]="{'border-red-500': dados.telefone.errors && (dados.telefone.dirty || dados.telefone.touched)}"
+                            type="text"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                            placeholder="(15) 3226-3322" mask="(00) 0000-0000" formControlName="telefone">
+                        <app-error [control]="dados.telefone"></app-error>
+
+                    </div>
+                    <div class="w-full md:w-1/2 px-3">
+                        <label for="celular" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                            Celular </label>
+                        <input
+                            [ngClass]="{'border-red-500': dados.celular.errors && (dados.celular.dirty || dados.celular.touched)}"
+                            type="text"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                            placeholder="(15) 988081828" mask="(00) 0-0000-0000" formControlName="celular">
+                        <app-error [control]="dados.celular"></app-error>
+                    </div>
+                </div>
+
+            </div>
+            <!-- end / Dados -->
+
+            <!-- Objetivo -->
+            <p class="font-bold">Objetivo</p>
+            <div class="flex flex-wrap -mx-3 mb-6">
+
+                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <input
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                        type="text" formControlName="objetivo" placeholder="Ex: Analista de Sistemas">
+                    <app-error [control]="resume.controls.objetivo"></app-error>
+                </div>
+            </div>
+            <!-- end / Objetivo -->
+
+            <!-- Formação -->
+            <div class="flex justify-between">
+                <p class="font-bold">Formações</p>
+                <div class="flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" *ngIf="formacoesControl.length <= 3"
+                        (click)="adicionaFormacao()" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" *ngIf="formacoesControl.length > 1"
+                        (click)="removeEscolaridade()" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+            </div>
+            <div formArrayName="formacoes">
+                <div class="flex flex-wrap -mx-3 mb-6" *ngFor="let formacao of formacoesControl.controls; let i=index"
+                    [formGroupName]="i">
+
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block text-left " style="max-width: 400px">
+                            <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Escolaridade</label>
+                            <select formControlName="escolaridade" class="form-select block w-full mt-1">
+                                <option *ngFor="let escola of escolaridade" class="pr-1" [ngValue]="escola">{{escola}}
+                                </option>
+                            </select>
+
+                        </label>
+                        <app-error [control]="formacao.get('escolaridade')"></app-error>
+
+                    </div>
+
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="instituição">
+                            Instituição
+                        </label>
+                        <input
+                            [ngClass]=" {'border-red-500': formacao.get('instituicao')?.errors && ( formacao.get('instituicao')?.dirty ||formacao.get('instituicao')?.touched)} "
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                            type="text" placeholder="Ex: Escola Estadual Fulano Tal" formControlName="instituicao">
+
+                        <app-error [control]="formacao.get('instituicao')"></app-error>
+
+
+                    </div>
+
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="empresa">
+                            Data de Início
+                        </label>
+                        <input
+                            [ngClass]=" {'border-red-500': formacao.get('inicio')?.errors && ( formacao.get('inicio')?.dirty ||formacao.get('inicio')?.touched)} "
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                            type="date" placeholder="Ex: 1/1/2020" formControlName="inicio">
+                        <app-error [control]="formacao.get('inicio')"></app-error>
+
+                    </div>
+
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="empresa">
+                            Data de Término
+                        </label>
+                        <input
+                            [ngClass]=" {'border-red-500': formacao.get('termino')?.errors && ( formacao.get('termino')?.dirty ||formacao.get('termino')?.touched)} "
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                            type="date" placeholder="Ex: 1/1/2020" formControlName="termino">
+                        <app-error [control]="formacao.get('termino')"></app-error>
+
+                    </div>
+
+                    <div class="mx-auto max-w-sm text-center flex flex-wrap justify-center">
+
+                        <div class="flex items-center mr-4 mb-4" *ngFor="let status of statusTipos;let i=index">
+                            <!-- <input type="radio" id="enum_{{status}}" name="status"  [value]="status"
+                                class="hidden" />
+                            <label for="radio3" for="enum_{{status}}" class="flex items-center cursor-pointer">
+                                <span class="w-4 h-4 inline-block mr-1 rounded-full border border-grey"></span>
+                                {{status}}</label>  </label>-->
+                            <input type="radio" formControlName="status" [value]="status.value">{{ status.value }}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end / Formação -->
+
+            <!-- Experiências -->
+            <div class="flex justify-between">
+                <p class="font-bold">Experiência</p>
+                <div class="flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" *ngIf="experienciaControl.length <= 3"
+                        (click)="adicionaFormacao()" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" *ngIf="experienciaControl.length > 1" (click)="removeLink()"
+                        class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+            </div>
+
+            <div formArrayName="experiencias">
+                <div class="flex flex-wrap -mx-3 mb-6" [formGroupName]="i"
+                    *ngFor="let experiencia of experienciaControl.controls; let i=index">
+
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="funcao">
+                            Função
+                        </label>
+                        <input
+                            [ngClass]=" {'border-red-500': experiencia.get('funcao')?.errors && ( experiencia.get('funcao')?.dirty ||experiencia.get('funcao')?.touched)} "
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                            type="text" placeholder="Ex: Analista de Sistemas" formControlName="funcao">
+                        <app-error [control]="experiencia.get('funcao')"></app-error>
+
+                    </div>
+
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="empresa">
+                            Empresa
+                        </label>
+                        <input
+                            [ngClass]=" {'border-red-500': experiencia.get('empresa')?.errors && ( experiencia.get('empresa')?.dirty ||experiencia.get('empresa')?.touched)} "
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                            type="text" placeholder="Ex: Empresa da Tia" formControlName="empresa">
+                        <app-error [control]="experiencia.get('empresa')"></app-error>
+
+                    </div>
+
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="empresa">
+                            Data de Início
+                        </label>
+                        <input
+                            [ngClass]=" {'border-red-500': experiencia.get('inicio')?.errors && ( experiencia.get('inicio')?.dirty ||experiencia.get('inicio')?.touched)} "
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                            type="date" max="8" placeholder="Ex: 1/1/2020" formControlName="inicio">
+                        <app-error [control]="experiencia.get('inicio')"></app-error>
+                    </div>
+
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="empresa">
+                            Data de Término
+                        </label>
+                        <input
+                            [ngClass]=" {'border-red-500': experiencia.get('termino')?.errors && ( experiencia.get('termino')?.dirty ||experiencia.get('termino')?.touched)} "
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                            type="date" placeholder="Ex: 10/10/2021" formControlName="termino">
+                        <app-error [control]="experiencia.get('termino')"></app-error>
+                    </div>
+                    <div class="w-full  px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="empresa">
+                            Descrição
+                        </label>
+                        <textarea
+                            [ngClass]=" {'border-red-500': experiencia.get('descricao')?.errors && ( experiencia.get('descricao')?.dirty ||experiencia.get('descricao')?.touched)} "
+                            class="form-textarea mt-1  border block w-full" rows="3"
+                            placeholder="Ex: Suporte em Help Desk" formControlName="descricao"></textarea>
+                        <app-error [control]="experiencia.get('descricao')"></app-error>
+                    </div>
+                </div>
+            </div>
+            <!-- end / Experiências -->
+
+            <div class="flex justify-between">
+                <p class="font-bold">Habilidades</p>
+                <div class="flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" *ngIf="habilidadesControl.length <= 5"
+                    (click)="adicionaHabilidade()" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" *ngIf="habilidadesControl.length > 1"
+                    (click)="removeHabilidade()" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                </div>
+            </div>
+            <!-- Habilidades -->
+
+            <div class="w-full px-3 mb-6 md:mb-0" formArrayName="habilidades">
+                <div class="flex items-center border-b border-teal-500 py-2" [formGroupName]="i"
+                    *ngFor="let habilidade of habilidades.controls; let i = index">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mr-2"
+                        for="empresa">
+                        {{i+1}}
+                    </label>
+
+                    <input
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                        type="text" placeholder="Ex: Escola Estadual Fulano Tal" formControlName="nome">
+                </div>
+            </div>
+            <!-- end / Habilidades -->
+
+            <div class="flex items-center justify-center">
+                <button [ngClass]="{'rounded opacity-50 cursor-not-allowed': resume.invalid}" type="submit" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                    <span>Download </span>
+                  </button>
+                <!--  -->
+                <button (click)="resetarForm()" type="button"
+                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    Resetar formulário
+                </button>
+                <button (click)="downloadExemplo()" type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                    <span>Download Exemplo</span>
+                  </button>
+            </div>
+        </form>
+    </div>
+</div>
