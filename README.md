@@ -18,6 +18,7 @@ O que você precisa para instalar o software e como instalá-los.
 * TailwindCss: 2.2.19
 * @types/file-saver: 2.0.3
 * file-saver: 2.0.5
+* docx: 7.1.2
 * Angular CLI: 12.2.12
 * Node: 12.22.1
 * Angular: 12.2.12
@@ -37,7 +38,11 @@ O que você precisa para instalar o software e como instalá-los.
 
 ## Autores
 
-* **Braian Silva** - [Twitter](https://twitter.com/braiancod0e) - [Gmail](mailto:braiannogueirasilva@gmail.com)
+* **Braian Silva** - [Twitter](https://twitter.com/braiancode) - [Gmail](mailto:braiannogueirasilva@gmail.com)
+
+## Referência
+
+[Angular Docx Cv Generator](https://stackblitz.com/edit/angular-docx-cv-generator)
 
 ## Licença
 
